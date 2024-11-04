@@ -1,8 +1,23 @@
-# utils/address_standardizer.py
 import re
+from geopy.geocoders import Nominatim
+from geopy.exc import GeocoderTimedOut, GeocoderServiceError
 
 class AddressStandardizer:
     """Standardizes address fields with common abbreviations and typos."""
+
+    def __init__(self):
+        self.geolocator = Nominatim(user_agent="address_normalizer")
+
+    def normalize_address(self, address):
+        try:
+            location = self.geolocator.geocode(address, addressdetails=True)
+            if location:
+                return location.address
+            else:
+                return None
+        except (GeocoderTimedOut, GeocoderServiceError) as e:
+            print(f"Geocoding error: {e}")
+            return None
 
     def standardize(self, address):
         # Comprehensive list of abbreviations and common typos
@@ -49,5 +64,10 @@ class AddressStandardizer:
         
         # Remove trailing/leading whitespace
         address = address.strip()
+
+        # Normalize address using Nominatim
+        normalized_address = self.normalize_address(address)
+        if normalized_address:
+            return normalized_address
 
         return address

@@ -120,3 +120,13 @@ For support, please contact:
 ## License
 
 Internal use only - SIR
+
+## Setting up Nominatim User Agent
+
+To use the Nominatim service for address normalization, you need to set up a user agent. This can be done by adding the following line to your environment variables:
+
+```bash
+NOMINATIM_USER_AGENT=your_unique_user_agent
+```
+
+Replace `your_unique_user_agent` with a unique identifier for your application. This is required by Nominatim to identify your requests.
