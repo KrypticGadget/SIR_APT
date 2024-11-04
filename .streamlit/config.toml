@@ -6,7 +6,7 @@ textColor = "#FFFFFF"
 font = "sans serif"
 
 [server]
-enableCORS = false
+enableCORS = true  # Changed to true to resolve the warning
 enableXsrfProtection = true
 
 [browser]
